@@ -5,13 +5,13 @@ import time
 import openai
 from tqdm import tqdm
 
-__all__ = ['Eval', 'MAX_API_RETRY', 'REQ_TIME_GAP']
+__all__ = ['FairEval', 'MAX_API_RETRY', 'REQ_TIME_GAP']
 
 MAX_API_RETRY = 10000
 REQ_TIME_GAP = 0.5
 
 
-class Eval(object):
+class FairEval(object):
     def __init__(self, answer_file_list, question_file, output, api_key, eval_model='gpt-4', k=3, bpc=1):
         if eval_model == "gpt-4":
             self.cost_per_promtp_token = 0.03 / 1000
