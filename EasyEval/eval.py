@@ -85,40 +85,6 @@ class FairEval(object):
         score2 = sum([score[1] for score in all_scores]) / len(all_scores)
         return contents, contents_bpc, cost, [score1, score2]
 
-    def get_eval(self, ques, ans1, ans2):
-        cost = 0
-        system_prompt, user_prompt = gen_prompt(ques, ans1, ans2)
-        response = self.query_gpt(system_prompt, user_prompt)
-        cost += response['usage']['prompt_tokens'] * self.cost_per_promtp_token
-        cost += response['usage']['completion_tokens'] * self.cost_per_completion_token
-        all_scores = []
-        contents = []
-        contents_bpc = []
-        for choice in response["choices"]:
-            content = choice["message"]["content"]
-            score1, score2 = parse_score_from_review(content)
-            if score1 == -1 or score2 == -1:
-                continue
-            all_scores.append([score1, score2])
-            contents.append(content)
-
-        if self.bpc == 1:
-            system_prompt, user_prompt_bpc = gen_prompt(ques, ans2, ans1)
-            response_bpc = self.query_gpt(system_prompt, user_prompt_bpc)
-            cost += response_bpc['usage']['prompt_tokens'] * self.cost_per_promtp_token
-            cost += response_bpc['usage']['completion_tokens'] * self.cost_per_completion_token
-            for choice in response_bpc["choices"]:
-                content = choice["message"]["content"]
-                score2, score1 = parse_score_from_review(content)
-                if score1 == -1 or score2 == -1:
-                    continue
-                all_scores.append([score1, score2])
-                contents_bpc.append(content)
-
-        score1 = sum([score[0] for score in all_scores]) / len(all_scores)
-        score2 = sum([score[1] for score in all_scores]) / len(all_scores)
-        return contents, contents_bpc, cost, [score1, score2]
-
     def fair_eval(self):
         question_jsons = get_json_list(self.question_file)
         answer1_jsons = get_json_list(self.answer_file_list[0])
