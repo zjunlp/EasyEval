@@ -18,7 +18,7 @@ with open("README.md") as f:
 
 def do_setup():
     setup(
-        name="EasyEval",
+        name="easyeval",
         version='0.0.1',
         description="EasyEval",
         url="https://github.com/zjunlp/EasyEval/tree/main",
