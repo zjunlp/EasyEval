@@ -13,7 +13,7 @@ pip install -e .
 ```
 **Installation using PyPI:**
 ```
-pip install easyeval -i https://pypi.org/simple
+pip install easyeval-tool
 ```
 ---
 

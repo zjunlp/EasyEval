@@ -18,11 +18,12 @@ with open("README.md") as f:
 
 def do_setup():
     setup(
-        name="easyeval",
+        name="easyeval-tool",
         version='0.0.1',
         description="EasyEval",
         url="https://github.com/zjunlp/EasyEval/tree/main",
         author='Yida Xue',
+        author_email='xueyida@qq.com',
         long_description=readme,
         long_description_content_type="text/markdown",
         install_requires=get_install_requires(),
